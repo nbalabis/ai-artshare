@@ -15,9 +15,14 @@ const CreatePost = () => {
 
   const handleSubmit = () => {};
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleSupriseMe = (e) => {};
+  const handleSurpriseMe = () => {
+    const randomPrompt = getRandomPrompt(form.prompt);
+    setForm({ ...form, prompt: randomPrompt });
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -44,10 +49,10 @@ const CreatePost = () => {
             type="text"
             name="prompt"
             placeholder="A synthwave style sunset above the reflecting water of the sea, digital art"
-            vlaue={form.prompt}
+            value={form.prompt}
             handleChange={handleChange}
-            isSupriseMe
-            handleSupriseMe={handleSupriseMe}
+            isSurpriseMe
+            handleSurpriseMe={handleSurpriseMe}
           />
 
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
@@ -88,8 +93,11 @@ const CreatePost = () => {
             Once you have created the image yout want, you can share it with
             others in the community
           </p>
-          <button type="submit" className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            {loading ? 'Sharing...' : 'Share with the community'}
+          <button
+            type="submit"
+            className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            {loading ? "Sharing..." : "Share with the community"}
           </button>
         </div>
       </form>
