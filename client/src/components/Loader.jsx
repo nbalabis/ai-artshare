@@ -18,7 +18,6 @@ const Loader = () => (
         fill="currentFill"
       />
     </svg>
-    <p className="mt-2 text-[#666e75] text-[14px] w-64 text-center">The server for this site  is being hosted for free using render. Please be patient to allow time for the server to spin up.</p>
   </div>
 );
 
