@@ -1,7 +1,7 @@
 import React from "react";
 
 const Loader = () => (
-  <div role="status">
+  <div role="status" className="flex flex-col items-center gap-2">
     <svg
       aria-hidden="true"
       className="inline w-10 h-10 mr-2 text-gray-200 animate-spin fill-[#6469ff]"
@@ -18,6 +18,7 @@ const Loader = () => (
         fill="currentFill"
       />
     </svg>
+    <p className="mt-2 text-[#666e75] text-[14px] w-64 text-center">The server for this site  is being hosted for free using render. Please be patient to allow time for the server to spin up.</p>
   </div>
 );
 
