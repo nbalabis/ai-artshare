@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Userfront from "@userfront/core";
+import Userfront from "@userfront/react";
 
 import { logo } from "./assets";
-import { Home, CreatePost, Signup, Login } from "./pages";
+import { Home, CreatePost } from "./pages";
 
 Userfront.init("vndrdxvn");
+
+const SignupForm = Userfront.build({
+  toolId: "lldlaom",
+});
+
+const LoginForm = Userfront.build({
+  toolId: "ramarka",
+});
 
 const App = () => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const checkForUser = async () => {
-      try {
-        const response = await fetch("https://api.userfront.com/v0/self", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Userfront.tokens.accessToken}`,
-          },
-        });
+  // useEffect(() => {
+  //   const checkForUser = async () => {
+  //     try {
+  //       const response = await fetch("https://api.userfront.com/v0/self", {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Userfront.tokens.accessToken}`,
+  //         },
+  //       });
 
-        const data = await response.json();
-        console.log(data)
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    checkForUser();
-  }, []);
+  //       const data = await response.json();
+  //       console.log(data)
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   checkForUser();
+  // }, []);
 
   return (
     <BrowserRouter>
@@ -59,16 +67,24 @@ const App = () => {
             </Link>
           </div>
         )}
+        <button
+            type="button"
+            className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+            onClick={Userfront.logout}
+          >
+            Logout
+          </button>
       </header>
       <main className="sm:p-8 px-4 py-8 w-full bg-[#f9fafe] min-h-[calc(100vh-73px)]">
+        <>{JSON.stringify(Userfront.user, null, 2)}</>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/create-post"
             element={<CreatePost user={user && user} />}
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
         </Routes>
       </main>
     </BrowserRouter>
