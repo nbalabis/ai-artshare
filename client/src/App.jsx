@@ -37,7 +37,6 @@ const App = () => {
   useEffect(() => {
     if (Userfront.tokens.accessToken) {
       const { name, userUuid } = Userfront.user;
-      console.log(Userfront.user)
       setUser({ name, id: userUuid });
     }
   }, []);
@@ -88,7 +87,7 @@ const App = () => {
             path="/create-post"
             element={
               <RequireAuth>
-                <CreatePost user={user && user} />
+                <CreatePost user={user} />
               </RequireAuth>
             }
           />
