@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Userfront from "@userfront/react";
+
+Userfront.init("vndrdxvn");
+const LoginForm = Userfront.build({
+    toolId: "ramarka"
+})
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+  return <LoginForm />;
+};
 
-export default Login
+export default Login;
