@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Userfront from "@userfront/react";
 
 Userfront.init("vndrdxvn");
-const UserfrontSignup = Userfront.build({
+const SignupForm = Userfront.build({
   toolId: "lldlaom",
 });
 
-const SignupForm = () => {
+const Signup = () => {
   return (
     <div>
-      <UserfrontSignup />
+      <SignupForm />
     </div>
   );
 };
 
-export default SignupForm;
+export default Signup

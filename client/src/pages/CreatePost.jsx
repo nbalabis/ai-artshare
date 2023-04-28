@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
-import { FormField, Loader, SignupForm } from "../components";
+import { FormField, Loader } from "../components";
 import { exampleImg } from "../assets/index";
 
 const CreatePost = ({ user }) => {
@@ -81,7 +81,7 @@ const CreatePost = ({ user }) => {
     setForm({ ...form, prompt: randomPrompt });
   };
 
-  return user ? (
+  return (
     <section className="max-w-7xl mx-auto">
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
@@ -159,9 +159,7 @@ const CreatePost = ({ user }) => {
         </div>
       </form>
     </section>
-  ) : (
-    <SignupForm />
-  );
+  )
 };
 
 export default CreatePost;
