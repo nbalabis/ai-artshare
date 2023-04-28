@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import Userfront from "@userfront/react";
 
 import { logo } from "./assets";
@@ -14,6 +14,16 @@ const SignupForm = Userfront.build({
 const LoginForm = Userfront.build({
   toolId: "ramarka",
 });
+
+function RequireAuth({ children }) {
+  let location = useLocation();
+  if (!Userfront.tokens.accessToken) {
+    // Redirect to the /login page
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -68,12 +78,12 @@ const App = () => {
           </div>
         )}
         <button
-            type="button"
-            className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
-            onClick={Userfront.logout}
-          >
-            Logout
-          </button>
+          type="button"
+          className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+          onClick={Userfront.logout}
+        >
+          Logout
+        </button>
       </header>
       <main className="sm:p-8 px-4 py-8 w-full bg-[#f9fafe] min-h-[calc(100vh-73px)]">
         <>{JSON.stringify(Userfront.user, null, 2)}</>
@@ -81,7 +91,11 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/create-post"
-            element={<CreatePost user={user && user} />}
+            element={
+              <RequireAuth>
+                <CreatePost user={user && user} />
+              </RequireAuth>
+            }
           />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
