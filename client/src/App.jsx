@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Userfront from "@userfront/core";
 
 import { logo } from "./assets";
 import { Home, CreatePost, Signup, Login } from "./pages";
 
+Userfront.init("vndrdxvn");
+
 const App = () => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkForUser = async () => {
+      try {
+        const response = await fetch("https://api.userfront.com/v0/self", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Userfront.tokens.accessToken}`,
+          },
+        });
+
+        const data = await response.json();
+        console.log(data)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    checkForUser();
+  }, []);
 
   return (
     <BrowserRouter>
