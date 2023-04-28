@@ -1,6 +1,6 @@
 import Card from './Card'
 import FormField from './FormField'
 import Loader from './Loader'
-import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 
-export { Card, FormField, Loader, LoginForm }
+export { Card, FormField, Loader, SignupForm }
