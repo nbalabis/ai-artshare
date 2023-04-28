@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Userfront from "@userfront/react";
 
 import { logo } from "./assets";
@@ -18,7 +25,6 @@ const LoginForm = Userfront.build({
 function RequireAuth({ children }) {
   let location = useLocation();
   if (!Userfront.tokens.accessToken) {
-    // Redirect to the /login page
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -28,25 +34,13 @@ function RequireAuth({ children }) {
 const App = () => {
   const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   const checkForUser = async () => {
-  //     try {
-  //       const response = await fetch("https://api.userfront.com/v0/self", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Userfront.tokens.accessToken}`,
-  //         },
-  //       });
-
-  //       const data = await response.json();
-  //       console.log(data)
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   checkForUser();
-  // }, []);
+  useEffect(() => {
+    if (Userfront.tokens.accessToken) {
+      const { name, userUuid } = Userfront.user;
+      console.log(Userfront.user)
+      setUser({ name, id: userUuid });
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -55,12 +49,21 @@ const App = () => {
           <img src={logo} alt="logo" className="w-28 object-contain" />
         </Link>
         {user ? (
-          <Link
-            to="/create-post"
-            className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
-          >
-            Create
-          </Link>
+          <div className="flex gap-2">
+            <Link
+              to="/create-post"
+              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+            >
+              Create
+            </Link>
+            <button
+              type="button"
+              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+              onClick={Userfront.logout}
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <div className="flex gap-2">
             <Link
@@ -77,16 +80,8 @@ const App = () => {
             </Link>
           </div>
         )}
-        <button
-          type="button"
-          className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
-          onClick={Userfront.logout}
-        >
-          Logout
-        </button>
       </header>
       <main className="sm:p-8 px-4 py-8 w-full bg-[#f9fafe] min-h-[calc(100vh-73px)]">
-        <>{JSON.stringify(Userfront.user, null, 2)}</>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
