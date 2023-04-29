@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  BrowserRouter,
+  HashRouter,
   Link,
   Route,
   Routes,
@@ -42,7 +42,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <header className="w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]">
         <Link to="/">
           <img src={logo} alt="logo" className="w-28 object-contain" />
@@ -95,7 +95,7 @@ const App = () => {
           <Route path="/signup" element={<SignupForm />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
