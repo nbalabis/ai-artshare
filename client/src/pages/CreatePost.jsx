@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { preview } from "../assets";
@@ -6,11 +6,11 @@ import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 import { exampleImg } from "../assets/index";
 
-const CreatePost = () => {
+const CreatePost = ( {user} ) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", prompt: "", photo: "" });
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
   const generateImage = async () => {
     if (form.prompt) {
@@ -56,7 +56,7 @@ const CreatePost = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(form),
+            body: JSON.stringify({...form, name: user.name}),
           }
         );
 
@@ -93,14 +93,6 @@ const CreatePost = () => {
 
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
-          <FormField
-            labelName="Your name"
-            type="text"
-            name="name"
-            placeholder="John Doe"
-            vlaue={form.name}
-            handleChange={handleChange}
-          />
           <FormField
             labelName="Prompt"
             type="text"
@@ -159,7 +151,7 @@ const CreatePost = () => {
         </div>
       </form>
     </section>
-  );
+  )
 };
 
 export default CreatePost;
