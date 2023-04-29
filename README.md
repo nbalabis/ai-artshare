@@ -72,6 +72,7 @@
 - Create AI-generated images using OpenAI's API
 - Share creations to a community homepage
 - Download and search through created images
+- User Registration/Login with Authentication & Authorization
 
 <!-- Getting Started -->
 
