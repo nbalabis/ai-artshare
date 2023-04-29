@@ -51,13 +51,13 @@ const App = () => {
           <div className="flex gap-2">
             <Link
               to="/create-post"
-              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md hover:shadow-md"
             >
               Create
             </Link>
             <button
               type="button"
-              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+              className="font-inter font-medium text-[#6469ff] px-4 py-2 rounded-md border border-[#6469ff] hover:shadow-md"
               onClick={Userfront.logout}
             >
               Logout
@@ -67,13 +67,13 @@ const App = () => {
           <div className="flex gap-2">
             <Link
               to="/login"
-              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+              className="font-inter font-medium text-[#6469ff] px-4 py-2 rounded-md border border-[#6469ff] hover:shadow-md"
             >
               Log In
             </Link>
             <Link
               to="/signup"
-              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+              className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md hover:shadow-md"
             >
               Sign Up
             </Link>
