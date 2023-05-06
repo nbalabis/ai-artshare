@@ -1,45 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  HashRouter,
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
-import Userfront from "@userfront/react";
+import { HashRouter, Link, Route, Routes } from "react-router-dom";
 
 import { logo } from "./assets";
-import { Home, CreatePost } from "./pages";
-
-Userfront.init("vndrdxvn");
-
-const SignupForm = Userfront.build({
-  toolId: "lldlaom",
-});
-
-const LoginForm = Userfront.build({
-  toolId: "ramarka",
-});
-
-function RequireAuth({ children }) {
-  let location = useLocation();
-  if (!Userfront.tokens.accessToken) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return children;
-}
+import { Home, CreatePost, Login, Signup } from "./pages";
 
 const App = () => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    if (Userfront.tokens.accessToken) {
-      const { name, userUuid } = Userfront.user;
-      setUser({ name, id: userUuid });
-    }
-  }, []);
+  const logout = () => {};
 
   return (
     <HashRouter>
@@ -58,7 +26,7 @@ const App = () => {
             <button
               type="button"
               className="font-inter font-medium text-[#6469ff] px-4 py-2 rounded-md border border-[#6469ff] hover:shadow-md"
-              onClick={Userfront.logout}
+              onClick={logout}
             >
               Logout
             </button>
@@ -83,16 +51,9 @@ const App = () => {
       <main className="sm:p-8 px-4 py-8 w-full bg-[#f9fafe] min-h-[calc(100vh-73px)]">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/create-post"
-            element={
-              <RequireAuth>
-                <CreatePost user={user} />
-              </RequireAuth>
-            }
-          />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignupForm />} />
+          <Route path="/create-post" element={<CreatePost user={user} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </main>
     </HashRouter>
