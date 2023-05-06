@@ -1,17 +1,21 @@
-const register = (req, res) => {
-    // Assuming the form data is sent as JSON in the request body
-    const { username, password } = req.body;
+import User from "../mongodb/models/user.js";
 
-    // TODO: validate the form data
+const register = async (req, res) => {
+    try {
+        // Assuming the form data is sent as JSON in the request body
+        const { username, password } = req.body;
+        const user = new User({ username })
+        const registeredUser = await User.register(user, password)
 
-    // TODO: check if the username is already taken
+        //TODO: LOG USER IN
 
-    // TODO: hash the password
+        // Send a response with a success message
+        res.status(200).json({ message: 'Account successfully created. Welcome to AI-ArtShare!' })
 
-    // TODO: store the user data in a database
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 
-    // Send a response with a success message
-    res.status(200).json({ message: 'Registration successful' });
 }
 
 export { register }

@@ -22,11 +22,12 @@ const Signup = () => {
         body: JSON.stringify(form),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+        throw new Error(data.message);
       }
       navigate("/");
+      alert(data.message);
     } catch (err) {
       alert(err);
     }
