@@ -18,20 +18,21 @@ const Home = () => {
   const [searchedResults, setSearchedResults] = useState(null);
   const [searchTimeout, setSearchTimeout] = useState(null);
 
+  const API_URL = import.meta.env.DEV
+    ? "http://localhost:8080"
+    : "https://ai-artshare.onrender.com";
+
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
 
       try {
-        const response = await fetch(
-          "https://ai-artshare.onrender.com/api/v1/post",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/v1/post`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (response.ok) {
           const result = await response.json();
@@ -92,7 +93,10 @@ const Home = () => {
         {loading ? (
           <div className="flex justify-center items-center flex-col">
             <Loader />
-            <p className="mt-2 text-[#666e75] text-[14px] w-64 text-center">The server for this site  is being hosted for free using render. Please be patient to allow time for the server to spin up.</p>
+            <p className="mt-2 text-[#666e75] text-[14px] w-64 text-center">
+              The server for this site is being hosted for free using render.
+              Please be patient to allow time for the server to spin up.
+            </p>
           </div>
         ) : (
           <>

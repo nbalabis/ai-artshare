@@ -6,28 +6,29 @@ import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 import { exampleImg } from "../assets/index";
 
-const CreatePost = ( {user} ) => {
+const CreatePost = ({ user }) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", prompt: "", photo: "" });
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+
+  const API_URL = import.meta.env.DEV
+    ? "http://localhost:8080"
+    : "https://ai-artshare.onrender.com";
 
   const generateImage = async () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch(
-          "https://ai-artshare.onrender.com/api/v1/dalle",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            }),
-          }
-        );
+        const response = await fetch(`${API_URL}/api/v1/dalle`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
@@ -49,16 +50,13 @@ const CreatePost = ( {user} ) => {
       setLoading(true);
 
       try {
-        const response = await fetch(
-          "https://ai-artshare.onrender.com/api/v1/post",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({...form, name: user.name}),
-          }
-        );
+        const response = await fetch(`${API_URL}/api/v1/post`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...form, name: user.name }),
+        });
 
         await response.json();
         navigate("/");
@@ -151,7 +149,7 @@ const CreatePost = ( {user} ) => {
         </div>
       </form>
     </section>
-  )
+  );
 };
 
 export default CreatePost;
