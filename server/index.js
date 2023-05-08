@@ -54,6 +54,26 @@ app.use('/', userRoutes)
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
 
+// app.post('/new', async (req, res) => {
+//   try {
+//     const name = 'Nicky B'
+//     console.log(`Storing ${name}`)
+//     req.session.name = name
+//     res.send({ message: 'saved' }).status(201)
+//   } catch (err) {
+//     console.log(err)
+//   }
+// })
+
+// app.get('/name', async (req, res) => {
+//   try {
+//     console.log(req.session)
+//     res.send({ message: req.session.name })
+//   } catch (err) {
+//     console.log(err)
+//   }
+// })
+
 app.get('/', async (req, res) => {
   res.status(200).json({
     message: 'Hello from DALL.E!',

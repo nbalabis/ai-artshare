@@ -13,12 +13,10 @@ const register = async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
-
 }
 
 const logout = (req, res) => {
     try {
-        console.log(req.user)
         req.logout(err => {
             if (err) return next(err)
             res.status(200).json({ message: 'Successfully logged out!' })
@@ -28,4 +26,13 @@ const logout = (req, res) => {
     }
 }
 
-export { register, logout }
+const getUser = (req, res) => {
+    try {
+        const user = req.user
+        res.status(200).json({user})
+    } catch (err) {
+        res.status(400).json({message: err.message})
+    }
+}
+
+export { register, logout, getUser }
