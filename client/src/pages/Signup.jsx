@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormField } from "../components";
 
-const Signup = () => {
+const Signup = ({ login }) => {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
   const API_URL = import.meta.env.DEV
@@ -27,6 +27,7 @@ const Signup = () => {
         throw new Error(data.message);
       }
       navigate("/");
+      login(data.registeredUser);
       alert(data.message);
     } catch (err) {
       alert(err);

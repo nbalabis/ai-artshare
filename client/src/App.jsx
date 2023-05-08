@@ -7,7 +7,15 @@ import { Home, CreatePost, Login, Signup } from "./pages";
 const App = () => {
   const [user, setUser] = useState(null);
 
+  const login = (user) => {
+    setUser(user);
+  };
+
   const logout = () => {};
+
+  const logIn = (newUser) => {
+    setUser(newUser);
+  };
 
   return (
     <HashRouter>
@@ -53,7 +61,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/create-post" element={<CreatePost user={user} />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup login={login} />} />
         </Routes>
       </main>
     </HashRouter>
