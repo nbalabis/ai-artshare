@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter, Link, Route, Routes } from "react-router-dom";
+// import axios from "axios";
 
 import { logo } from "./assets";
 import { Home, CreatePost, Login, Signup } from "./pages";
@@ -11,11 +12,39 @@ const App = () => {
     setUser(user);
   };
 
-  const logout = () => {};
-
-  const logIn = (newUser) => {
-    setUser(newUser);
+  const logout = async () => {
+    try {
+      const response = await fetch(`/api/logout`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      alert(data.message);
+    } catch (err) {
+      alert(err);
+    }
   };
+
+  // const storeCookie = async () => {
+  //   try {
+  //     const { data } = await axios.post("api/new", {
+  //       withCredentials: true,
+  //     });
+  //   } catch (err) {}
+  // };
+
+  // const getCookie = async () => {
+  //   try {
+  //     const { data } = await axios.get("api/name", {
+  //       withCredentials: true,
+  //     });
+  //     alert(data.message);
+  //   } catch (err) {}
+  // };
 
   return (
     <HashRouter>
