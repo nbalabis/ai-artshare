@@ -6,9 +6,6 @@ import { FormField } from "../components";
 const Signup = ({ login }) => {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
-  const API_URL = import.meta.env.DEV
-    ? "http://localhost:8080"
-    : "https://ai-artshare.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

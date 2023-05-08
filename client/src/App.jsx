@@ -8,17 +8,15 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const getUser = async() => {
-      const response = await fetch('/api/getuser')
-      const data = await response.json()
-      if(data.user) {
-        setUser(data.user)
+    const getUser = async () => {
+      const response = await fetch("/api/getuser");
+      const data = await response.json();
+      if (data.user) {
+        setUser(data.user);
       }
-      
-    }
-    getUser()   
-  }, [])
-  
+    };
+    getUser();
+  }, []);
 
   const login = (user) => {
     setUser(user);
@@ -35,7 +33,7 @@ const App = () => {
       if (!response.ok) {
         throw new Error(data.message);
       }
-      setUser(null)
+      setUser(null);
       alert(data.message);
     } catch (err) {
       alert(err);
@@ -85,7 +83,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create-post" element={<CreatePost user={user} />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login login={login} />} />
           <Route path="/signup" element={<Signup login={login} />} />
         </Routes>
       </main>

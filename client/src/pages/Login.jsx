@@ -1,9 +1,66 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+import { FormField } from "../components";
+
+const Login = ({ login }) => {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+      navigate("/");
+      login(data.user);
+      alert(data.message);
+    } catch (err) {
+      alert("Invalid Username or password");
+      setForm({ username: "", password: "" });
+    }
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   return (
-    <div>Login</div>
-  )
-}
+    <div>
+      <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-5">
+          <FormField
+            labelName="Username"
+            type="text"
+            name="username"
+            value={form.username}
+            handleChange={handleChange}
+          />
+          <FormField
+            labelName="Password"
+            type="password"
+            name="password"
+            value={form.password}
+            handleChange={handleChange}
+          />
+        </div>
+        <button
+          type="submit"
+          className="mt-5 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        >
+          Log In
+        </button>
+      </form>
+    </div>
+  );
+};
 
-export default Login
+export default Login;

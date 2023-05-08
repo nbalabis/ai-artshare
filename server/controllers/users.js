@@ -29,10 +29,14 @@ const logout = (req, res) => {
 const getUser = (req, res) => {
     try {
         const user = req.user
-        res.status(200).json({user})
+        res.status(200).json({ user })
     } catch (err) {
-        res.status(400).json({message: err.message})
+        res.status(400).json({ message: err.message })
     }
 }
 
-export { register, logout, getUser }
+const login = (req, res) => {
+    res.status(200).json({ message: 'Welcome back!', user: req.user })
+}
+
+export { register, logout, getUser, login }
